@@ -1,0 +1,30 @@
+{
+  "Role": {
+      "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+              {
+                  "Action": "sts:AssumeRoleWithWebIdentity",
+                  "Principal": {
+                      "Federated": "cognito-identity.amazonaws.com"
+                  },
+                  "Effect": "Allow",
+                  "Condition": {
+                      "StringEquals": {
+                          "cognito-identity.amazonaws.com:aud": "us-east-1:aa23f8de-f7c7-4a21-8bc7-8f69c5f8f603"
+                      },
+                      "ForAnyValue:StringLike": {
+                          "cognito-identity.amazonaws.com:amr": "authenticated"
+                      }
+                  },
+                  "Sid": ""
+              }
+          ]
+      },
+      "RoleId": "AROAJA52DXCUDJNNXOKGM",
+      "CreateDate": "2017-09-17T10:09:55.698Z",
+      "RoleName": "_cognito_authenticated",
+      "Path": "/",
+      "Arn": "arn:aws:iam::164358217934:role/_cognito_authenticated"
+  }
+}
