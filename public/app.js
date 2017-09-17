@@ -1,4 +1,13 @@
-'use strict';
+/***
+ * Excerpted from "Serverless Single Page Apps",
+ * published by The Pragmatic Bookshelf.
+ * Copyrights apply to this code. It may not be used to create training material,
+ * courses, books, articles, and the like. Contact us if you are in doubt.
+ * We make no guarantees that this code is fit for any purpose.
+ * Visit http://www.pragmaticprogrammer.com/titles/brapps for more book information.
+***/
+"use strict";
+
 var learnjs = {};
 
 learnjs.problems = [
@@ -12,14 +21,33 @@ learnjs.problems = [
   }
 ];
 
-learnjs.applyObject = function(obj, elem){
+learnjs.template = function(name) {
+  return $('.templates .' + name).clone();
+}
+
+learnjs.applyObject = function(obj, elem) {
   for (var key in obj) {
-    elem.find('[data-name="' + key +'"]').text(obj[key]);
+    elem.find('[data-name="' + key + '"]').text(obj[key]);
   }
 };
 
-learnjs.landingView = function() {
-  return learnjs.template('landing-view');
+learnjs.flashElement = function(elem, content) {
+  elem.fadeOut('fast', function() {
+    elem.html(content);
+    elem.fadeIn();
+  });
+}
+
+learnjs.buildCorrectFlash = function (problemNum) {
+  var correctFlash = learnjs.template('correct-flash');
+  var link = correctFlash.find('a');
+  if (problemNum < learnjs.problems.length) {
+    link.attr('href', '#problem-' + (problemNum + 1));
+  } else {
+    link.attr('href', '');
+    link.text("You're Finished!");
+  }
+  return correctFlash;
 }
 
 learnjs.problemView = function(data) {
@@ -36,8 +64,8 @@ learnjs.problemView = function(data) {
 
   function checkAnswerClick() {
     if (checkAnswer()) {
-      var flash = learnjs.buildCorrectFlash(problemNumber);
-      learnjs.flashElement(resultFlash, flash);
+      var flashContent = learnjs.buildCorrectFlash(problemNumber);
+      learnjs.flashElement(resultFlash, flashContent);
     } else {
       learnjs.flashElement(resultFlash, 'Incorrect!');
     }
@@ -48,7 +76,11 @@ learnjs.problemView = function(data) {
   view.find('.title').text('Problem #' + problemNumber);
   learnjs.applyObject(problemData, view);
   return view;
-};
+}
+
+learnjs.landingView = function() {
+  return learnjs.template('landing-view');
+}
 
 learnjs.showView = function(hash) {
   var routes = {
@@ -61,34 +93,11 @@ learnjs.showView = function(hash) {
   if (viewFn) {
     $('.view-container').empty().append(viewFn(hashParts[1]));
   }
-};
+}
 
 learnjs.appOnReady = function() {
-  window.onhashchange = function (){
+  window.onhashchange = function() {
     learnjs.showView(window.location.hash);
   };
   learnjs.showView(window.location.hash);
-}
-
-learnjs.flashElement = function (elem, content) {
-  elem.fadeOut('fast', function(){
-    elem.html(content);
-    elem.fadeIn();
-  });
-}
-
-learnjs.template = function(name) {
-  return $('.templates .' + name).clone();
-}
-
-learnjs.buildCorrectFlash = function (problemNum) {
-  var correctFlash = learnjs.template('correct-flash');
-  var link = correctFlash.find('a');
-  if (problemNum < learnjs.problems.length) {
-    link.attr('href', '#problem-' + (problemNum + 1));
-  } else {
-    link.attr('href', '');
-    link.text("You're Finished!");
-  }
-  return correctFlash;
 }
