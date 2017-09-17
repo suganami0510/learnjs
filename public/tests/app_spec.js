@@ -54,12 +54,12 @@ describe('LearnJS', function() {
     it('can check a correct answer by hitting a button', function(){
       view.find('.answer').val('true');
       view.find('.check-btn').click();
-      expect(view.find('.result').text()).toEqual('Collect!');
+      expect(view.find('.result').text()).toEqual('correct! Next Problem');
     });
     it('rejects an incorrect answer', function() {
       view.find('.answer').val('false');
       view.find('.check-btn').click();
-      expect(view.find('.result').text()).toEqual('Incollect!');
+      expect(view.find('.result').text()).toEqual('Incorrect!');
     });
   });
 });
