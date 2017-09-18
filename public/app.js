@@ -9,7 +9,11 @@
 "use strict";
 
 var learnjs = {
+<<<<<<< HEAD
   poolId: 'us-east-1:aa0e6d15-02da-4304-a819-f316506257e0'
+=======
+  poolId: 'us-east-1:6614e2c2-c756-4c5f-9a47-d8f93335ef60'
+>>>>>>> chap4
 };
 
 learnjs.identity = new $.Deferred();
